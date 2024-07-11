@@ -1,4 +1,5 @@
 import "./App.css";
+import { useState } from "react";
 import companyData from "../data/Companies.json";
 import guestData from "../data/Guests.json";
 import messageData from "../data/Messages.json";
@@ -9,40 +10,48 @@ import messageData from "../data/Messages.json";
 // We need to create an object to use to manipulate messages with the data in here.
 
 function App() {
-  console.log(companyData);
-  console.log(companyData[0].id);
+  const [message, setMessage] = useState("");
+
+  const messageObjectGenerator = () => {
+    let messageObject = {
+      hotel: "Claifornia",
+      city: "Santa Barbara",
+      timezone: "CT",
+      firstName: "",
+      lastName: "",
+      roomNumber: "",
+    };
+    setMessage(messageObject);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">Hotel Messaging App</header>
-      <div>
-        {companyData.map((company) => (
-          <div key={company.id}>
-            <p>{company.company}</p>
-            <p>{company.city}</p>
-            <p>{company.timezone}</p>
-          </div>
-        ))}
+    <>
+      <div className="App">
+        <header className="App-header">Hotel Messaging App</header>
+        <div>
+          <label>
+            Guest:
+            <select name="guestName" defaultValue="Guest">
+              {guestData.map((guest) => (
+                <option value={guest.id} key={guest.id}>
+                  {guest.firstName} {guest.lastName}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Company:
+            <select name="guestName" defaultValue="Guest">
+              {companyData.map((company) => (
+                <option value={company.id} key={company.id}>
+                  {company.company} , {company.city}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
       </div>
-      <div>
-        {guestData.map((guest) => (
-          <div key={guest.id}>
-            <p>{guest.firstName}</p>
-            <p>{guest.lastName}</p>
-            <p>{guest.reservation.roomNumber}</p>
-            <p>{guest.reservation.startTimestamp}</p>
-            <p>{guest.reservation.endTimestamp}</p>
-          </div>
-        ))}
-      </div>
-      <div>
-        {messageData.map((message) => (
-          <div key={message.id}>
-            <p>{message["company id"]}</p>
-            <p>{message.message}</p>
-          </div>
-        ))}
-      </div>
-    </div>
+    </>
   );
 }
 
