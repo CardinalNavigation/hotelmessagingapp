@@ -12,9 +12,6 @@ function App() {
   const [guests, setGuests] = useState(guestData);
   const [templates, setTemplateData] = useState(messageData);
 
-  console.log(templates.length);
-  console.log(templates);
-
   function handleTemplateSelection(event) {
     event.preventDefault();
     //Taking Data From Event, transfering to a form.
@@ -31,7 +28,6 @@ function App() {
     // We Need the Time of Day, and are generating that with this function
     let timeofDay = getTimeOfDay();
 
-    console.log("Data Selected", dataSelected);
     //Unpack Data into simpler syntax to make it more useable. -1 is for 0 index
     let guest = guests[dataSelected.guestId - 1];
     let company = companies[dataSelected.companyId - 1];
@@ -57,7 +53,6 @@ function App() {
       },
     };
 
-    console.log("The Data Object is", dataObject);
     //Set Data Object for the page.
     setData(dataObject);
 
