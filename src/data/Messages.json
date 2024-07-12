@@ -1,28 +1,38 @@
 [
-    {
-      "id": "1001",
-         "company id": 1,
-         "message": "welcome Hotel California!"
-     
-    },
-    {
-       "id": "1002",
-          "company id": 2,
-          "message": "welcome The Grand Budapest Hotel!"
-    },
-    {
-       "id": "1003",
-          "company id": 3,
-          "message": "welcome The Heartbreak Hotel!"
-    },
-    {
-      "id": "1005",
-         "company id": 4,
-         "message": "welcome The Prancing Pony!"
-    },
-    {
-      "id": "1006",
-         "company id": 5,
-         "message": "welcome The Fawlty Towers!"
-    }
-  ]
+   {
+      "id": 1,
+      "message": "We are so excited for your stay!"
+   },
+   {
+      "id": 2,
+      "message": "Please do not hesitate to let us know if there is anything we can do to enhance your stay."
+   },
+   {
+      "id": 3,
+      "message": "We are thrilled to welcome you for your first visit!"
+   },
+   {
+      "id": 4,
+      "message": "Thank you for returning! We hope you'll enjoy our newly renovated pool during your stay."
+   },
+   {
+      "id": 5,
+      "message": "Our concierge is available 24/7 to assist with any requests or local recommendations."
+   },
+   {
+      "id": 6,
+      "message": "We hope you'll enjoy our complimentary breakfast served daily from 6:30 AM to 10:00 AM."
+   },
+   {
+      "id": 7,
+      "message": "Don't forget to take advantage of our fitness center and spa facilities during your stay."
+   },
+   {
+      "id": 8,
+      "message": "As a valued guest, you have access to our exclusive lounge on the top floor."
+   },
+   {
+      "id": 9,
+      "message": "We've noted your preferences and have prepared your room accordingly."
+   }
+]

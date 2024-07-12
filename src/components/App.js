@@ -6,13 +6,13 @@ import messageData from "../data/Messages.json";
 
 // First we will get the JSON Data Imported ✅
 // Then we will set up a system to manipulate the data using buttons and selectors ✅
-// We need to create an object to use to manipulate messages with the data in here. ✅
-// Then We will Deploy to Vercel
+// We need to create an object to use to manipulate messages with the data in here.
 
 function App() {
   const [message, setMessage] = useState("");
+  const [data, setData] = useState("");
   const [currentHour, setcurrentHour] = useState(0);
-  const [dataSelected, setDataSelected] = useState({});
+  const [generatedData, setGeneratedData] = useState(null);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -24,7 +24,7 @@ function App() {
     const formObject = Object.fromEntries(formData.entries());
 
     //Set Variable For Data Selected This Will Be Relevant if functionality is expanded.
-    // setDataSelected(formJson);
+    setGeneratedData(formObject);
 
     //Pass Data to Function to compile message
     messageGenerator(formObject);
@@ -33,19 +33,47 @@ function App() {
   const messageGenerator = (dataSelected) => {
     // We Need the Time of Day, and are generating that with this function
     let timeofDay = getTimeOfDay();
-
-    // console.log("Inside Message Generator:", dataSelected);
-    console.log("Time of Day:", timeofDay);
-
+    console.log(dataSelected);
     //Unpack Data into simpler syntax to make it more useable. -1 is for 0 index
     let guest = guestData[dataSelected.guestId - 1];
     let company = companyData[dataSelected.companyId - 1];
+    let template = messageData[dataSelected.templateId - 1];
+    console.log(template);
+    console.log(guest);
+
+    //Generate Object Template for Future Use:
+    let messageObject = {
+      guest: {
+        firstName: guest.firstName,
+        lastName: guest.lastName,
+        roomNumber: guest.reservation.roomNumber,
+        checkIn: guest.reservation.startTimestamp,
+        checkOut: guest.reservation.endTimestamp,
+      },
+      company: {
+        name: company.company,
+        city: company.city,
+        timezone: company.timezone,
+      },
+      messageTemplate: {
+        timeofDay: timeofDay,
+        message: template.message,
+      },
+    };
+
+    setData(messageObject);
 
     //Create Message Variable with available data.
-    let messageObject = `Good ${timeofDay}, ${guest.firstName} ${guest.lastName}. ${company.company} is excited for your stay. Room ${guest.reservation.roomNumber} is ready for you. Enjoy your stay and please do not hesitate to message us if you need anything.`;
+    let messageOutput = `Good 
+    ${messageObject.messageTemplate.timeofDay}, 
+    ${messageObject.guest.firstName}
+    ${messageObject.guest.lastName}. 
+    Room ${guest.reservation.roomNumber} is ready for you. 
+    ${messageObject.company.name} is honored to be your preferred stay. 
+    ${messageObject.messageTemplate.message}`;
 
     //Set useState for rendering to DOM
-    setMessage(messageObject);
+    setMessage(messageOutput);
   };
 
   //This function processes the time of day and returns Morning, Afternoon or Goodnight.
@@ -72,13 +100,18 @@ function App() {
   //Resets Selected Template Message when the Reset Button is pressed.
   const messageReset = () => {
     setMessage("");
+    setData(null);
   };
 
   return (
     <div className="App">
+      {/* Display Header */}
       <header className="App-header">Hotel Messaging App</header>
+
+      {/* Begin Selection Form */}
       <div className="FormDiv">
         <form className="Form" onSubmit={handleSubmit}>
+          {/* Guest Selection */}
           <label>
             Guest:
             <select name="guestId" defaultValue="Guest">
@@ -89,6 +122,8 @@ function App() {
               ))}
             </select>
           </label>
+
+          {/* Company Selection */}
           <label>
             Company:
             <select name="companyId" defaultValue="Guest">
@@ -99,12 +134,40 @@ function App() {
               ))}
             </select>
           </label>
+
+          {/* Template Message Selection */}
+          <label>
+            Message Template:
+            <select name="templateId" defaultValue={"Template"}>
+              {messageData.map((template) => (
+                <option value={template.id} key={template.id}>
+                  {template.message}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          {/* Reset Resets the Whole Selection including the display below */}
           <button type="reset" onClick={messageReset}>
             Reset
           </button>
-          <button type="submit">Generate</button>
+          <button type="submit">Select</button>
         </form>
       </div>
+
+      {/* Selection Display. If Data Object is empty (like on page-load) no display */}
+      {data && (
+        <div>
+          <section>Guest:</section>
+          <p>
+            {data.guest.firstName} {data.guest.lastName}
+          </p>
+          <section>Company:</section>
+          <p>{data.company.name}</p>
+        </div>
+      )}
+
+      {/* Template Message Selected */}
       <div>
         <section>{message}</section>
       </div>
