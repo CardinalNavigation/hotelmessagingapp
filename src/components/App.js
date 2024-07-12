@@ -4,45 +4,41 @@ import companyData from "../data/Companies.json";
 import guestData from "../data/Guests.json";
 import messageData from "../data/Messages.json";
 
-// First we will get the JSON Data Imported ✅
-// Then we will set up a system to manipulate the data using buttons and selectors ✅
-// We need to create an object to use to manipulate messages with the data in here.
-
 function App() {
   const [message, setMessage] = useState("");
-  const [data, setData] = useState("");
-  const [currentHour, setcurrentHour] = useState(0);
-  const [generatedData, setGeneratedData] = useState(null);
+  const [data, setData] = useState(null);
 
-  function handleSubmit(event) {
+  const [companies, setCompanies] = useState(companyData);
+  const [guests, setGuests] = useState(guestData);
+  const [templates, setTemplateData] = useState(messageData);
+
+  console.log(templates.length);
+  console.log(templates);
+
+  function handleTemplateSelection(event) {
     event.preventDefault();
     //Taking Data From Event, transfering to a form.
     const form = event.target;
     //Creating form variable to hold what was submitted.
     const formData = new FormData(form);
     //Creating an Object from the Form Data.
-    const formObject = Object.fromEntries(formData.entries());
-
-    //Set Variable For Data Selected This Will Be Relevant if functionality is expanded.
-    setGeneratedData(formObject);
-
+    const dataSelected = Object.fromEntries(formData.entries());
     //Pass Data to Function to compile message
-    messageGenerator(formObject);
+    messageGenerator(dataSelected);
   }
 
   const messageGenerator = (dataSelected) => {
     // We Need the Time of Day, and are generating that with this function
     let timeofDay = getTimeOfDay();
-    console.log(dataSelected);
-    //Unpack Data into simpler syntax to make it more useable. -1 is for 0 index
-    let guest = guestData[dataSelected.guestId - 1];
-    let company = companyData[dataSelected.companyId - 1];
-    let template = messageData[dataSelected.templateId - 1];
-    console.log(template);
-    console.log(guest);
 
-    //Generate Object Template for Future Use:
-    let messageObject = {
+    console.log("Data Selected", dataSelected);
+    //Unpack Data into simpler syntax to make it more useable. -1 is for 0 index
+    let guest = guests[dataSelected.guestId - 1];
+    let company = companies[dataSelected.companyId - 1];
+    let template = templates[dataSelected.templateId - 1];
+
+    //Generate message object template for future Use:
+    let dataObject = {
       guest: {
         firstName: guest.firstName,
         lastName: guest.lastName,
@@ -61,18 +57,17 @@ function App() {
       },
     };
 
-    setData(messageObject);
+    console.log("The Data Object is", dataObject);
+    //Set Data Object for the page.
+    setData(dataObject);
 
     //Create Message Variable with available data.
-    let messageOutput = `Good 
-    ${messageObject.messageTemplate.timeofDay}, 
-    ${messageObject.guest.firstName}
-    ${messageObject.guest.lastName}. 
+    let messageOutput = `Good ${dataObject.messageTemplate.timeofDay}, ${dataObject.guest.firstName} ${dataObject.guest.lastName}. 
+    And welcome to ${dataObject.company.name}.
     Room ${guest.reservation.roomNumber} is ready for you. 
-    ${messageObject.company.name} is honored to be your preferred stay. 
-    ${messageObject.messageTemplate.message}`;
+    ${dataObject.messageTemplate.message}`;
 
-    //Set useState for rendering to DOM
+    //Set Message variable for rendering to DOM
     setMessage(messageOutput);
   };
 
@@ -97,6 +92,27 @@ function App() {
     return timeOfDay;
   };
 
+  //Below Function Allows Users To Add New Templates
+  const addNewTemplate = (event) => {
+    event.preventDefault();
+    //Taking Data From Event, transfering to a form.
+    const form = event.target;
+    //Creating form variable to hold what was submitted.
+    const formData = new FormData(form);
+    //Creating an Object from the Form Data.
+    const newTemplate = Object.fromEntries(formData.entries());
+    const newId = templates.length + 1;
+    const newTemplateObject = {
+      id: newId,
+      message: newTemplate.templateinput,
+    };
+
+    setTemplateData((currentTemplates) => [
+      ...currentTemplates,
+      newTemplateObject,
+    ]);
+  };
+
   //Resets Selected Template Message when the Reset Button is pressed.
   const messageReset = () => {
     setMessage("");
@@ -108,14 +124,28 @@ function App() {
       {/* Display Header */}
       <header className="App-header">Hotel Messaging App</header>
 
+      {/* Place to add to Templates */}
+      <div>
+        <section>Input New Templates:</section>
+        <form onSubmit={addNewTemplate}>
+          <label>
+            <input
+              name="templateinput"
+              defaultValue="Enter New Template Here"
+            ></input>
+          </label>
+          <button type="submit">Add to Templates</button>
+        </form>
+      </div>
+
       {/* Begin Selection Form */}
       <div className="FormDiv">
-        <form className="Form" onSubmit={handleSubmit}>
+        <form className="Form" onSubmit={handleTemplateSelection}>
           {/* Guest Selection */}
           <label>
             Guest:
             <select name="guestId" defaultValue="Guest">
-              {guestData.map((guest) => (
+              {guests.map((guest) => (
                 <option value={guest.id} key={guest.id}>
                   {guest.firstName} {guest.lastName}
                 </option>
@@ -125,9 +155,9 @@ function App() {
 
           {/* Company Selection */}
           <label>
-            Company:
+            Companies:
             <select name="companyId" defaultValue="Guest">
-              {companyData.map((company) => (
+              {companies.map((company) => (
                 <option value={company.id} key={company.id}>
                   {company.company}
                 </option>
@@ -139,7 +169,7 @@ function App() {
           <label>
             Message Template:
             <select name="templateId" defaultValue={"Template"}>
-              {messageData.map((template) => (
+              {templates.map((template) => (
                 <option value={template.id} key={template.id}>
                   {template.message}
                 </option>
@@ -155,19 +185,22 @@ function App() {
         </form>
       </div>
 
-      {/* Selection Display. If Data Object is empty (like on page-load) no display */}
+      {/* Selection Display. If Data Object is empty (like on page-load or reset) no display */}
       {data && (
         <div>
+          <div>Selections:</div>
           <section>Guest:</section>
           <p>
             {data.guest.firstName} {data.guest.lastName}
           </p>
           <section>Company:</section>
           <p>{data.company.name}</p>
+          <section>Message Template:</section>
+          <p>{data.messageTemplate.message}</p>
         </div>
       )}
 
-      {/* Template Message Selected */}
+      {/* Template Message Display */}
       <div>
         <section>{message}</section>
       </div>
