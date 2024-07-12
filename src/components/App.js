@@ -96,16 +96,20 @@ function App() {
     const formData = new FormData(form);
     //Creating an Object from the Form Data.
     const newTemplate = Object.fromEntries(formData.entries());
-    const newId = templates.length + 1;
-    const newTemplateObject = {
-      id: newId,
-      message: newTemplate.templateinput,
-    };
+    if (newTemplate.templateinput === "") {
+      return;
+    } else {
+      const newId = templates.length + 1;
+      const newTemplateObject = {
+        id: newId,
+        message: newTemplate.templateinput,
+      };
 
-    setTemplateData((currentTemplates) => [
-      ...currentTemplates,
-      newTemplateObject,
-    ]);
+      setTemplateData((currentTemplates) => [
+        ...currentTemplates,
+        newTemplateObject,
+      ]);
+    }
   };
 
   //Resets Selected Template Message when the Reset Button is pressed.
@@ -124,10 +128,7 @@ function App() {
         <section>Input New Templates:</section>
         <form onSubmit={addNewTemplate}>
           <label>
-            <input
-              name="templateinput"
-              defaultValue="Enter New Template Here"
-            ></input>
+            <input name="templateinput"></input>
           </label>
           <button type="submit">Add to Templates</button>
         </form>
@@ -135,6 +136,7 @@ function App() {
 
       {/* Begin Selection Form */}
       <div className="FormDiv">
+        <section>Select Guest To Reach:</section>
         <form className="Form" onSubmit={handleTemplateSelection}>
           {/* Guest Selection */}
           <label>
@@ -150,7 +152,7 @@ function App() {
 
           {/* Company Selection */}
           <label>
-            Companies:
+            Company:
             <select name="companyId" defaultValue="Guest">
               {companies.map((company) => (
                 <option value={company.id} key={company.id}>
@@ -162,7 +164,7 @@ function App() {
 
           {/* Template Message Selection */}
           <label>
-            Message Template:
+            Message:
             <select name="templateId" defaultValue={"Template"}>
               {templates.map((template) => (
                 <option value={template.id} key={template.id}>
@@ -181,7 +183,8 @@ function App() {
       </div>
 
       {/* Selection Display. If Data Object is empty (like on page-load or reset) no display */}
-      {data && (
+      {/* Might not be necessary to use until further development completed My Intention was to be able to delete or add to this data */}
+      {/* {data && (
         <div>
           <div>Selections:</div>
           <section>Guest:</section>
@@ -193,11 +196,12 @@ function App() {
           <section>Message Template:</section>
           <p>{data.messageTemplate.message}</p>
         </div>
-      )}
+      )} */}
 
       {/* Template Message Display */}
       <div>
-        <section>{message}</section>
+        <section>Your Message:</section>
+        <div>{message}</div>
       </div>
     </div>
   );
