@@ -5,14 +5,19 @@ import guestData from "../data/Guests.json";
 import messageData from "../data/Messages.json";
 
 function App() {
+  //Message holds user selections and displays on the bottom of the page.
   const [message, setMessage] = useState("");
+  //Data is available if the code needs to be extended.
   const [data, setData] = useState(null);
 
+  //This useState holds the imports from the JSON Document.
+  //If an API was added to this app this is where that data could be held for display.
   const [companies, setCompanies] = useState(companyData);
   const [guests, setGuests] = useState(guestData);
   const [templates, setTemplateData] = useState(messageData);
 
-  function handleTemplateSelection(event) {
+  //This is the Select button function which captures the data from the selectors.
+  const handleSelection = (event) => {
     event.preventDefault();
     //Taking Data From Event, transfering to a form.
     const form = event.target;
@@ -22,13 +27,15 @@ function App() {
     const dataSelected = Object.fromEntries(formData.entries());
     //Pass Data to Function to compile message
     messageGenerator(dataSelected);
-  }
+  };
 
+  //Compile our Message Together with the Data from the JSON Documents, using the ID numbers of the data objects in that document.
   const messageGenerator = (dataSelected) => {
     // We Need the Time of Day, and are generating that with this function
+    // Placing this function call here as it is not necessary to have Time in State until the message is generated.
     let timeofDay = getTimeOfDay();
 
-    //Unpack Data into simpler syntax to make it more useable. -1 is for 0 index
+    //Define Data Objects from Selection into simpler syntax to make it more useable. -1 is for 0 index.
     let guest = guests[dataSelected.guestId - 1];
     let company = companies[dataSelected.companyId - 1];
     let template = templates[dataSelected.templateId - 1];
@@ -54,6 +61,7 @@ function App() {
     };
 
     //Set Data Object for the page.
+    //This is more useful in the future if we want to do other things with this.
     setData(dataObject);
 
     //Create Message Variable with available data.
@@ -66,12 +74,12 @@ function App() {
     setMessage(messageOutput);
   };
 
-  //This function processes the time of day and returns Morning, Afternoon or Goodnight.
+  //This function processes the time of day and returns Morning, Afternoon or Evening.
   const getTimeOfDay = () => {
     // Convert Current date into hours.
     let currentHour = new Date().getHours();
 
-    // Set variable for what time of the day it is "Mornign, Afternoon, Evening"
+    // Create variable for what time of the day it is "Morning, Afternoon, or Evening"
     let timeOfDay = "";
 
     //My logic here is that this a greeting, and a hotel service desk employee seeing a client face to face
@@ -84,6 +92,7 @@ function App() {
       timeOfDay = "evening";
     }
 
+    //Return this data to our message generator above
     return timeOfDay;
   };
 
@@ -96,6 +105,8 @@ function App() {
     const formData = new FormData(form);
     //Creating an Object from the Form Data.
     const newTemplate = Object.fromEntries(formData.entries());
+
+    //If there is nothing entered into the new template, the button does not work
     if (newTemplate.templateinput === "") {
       return;
     } else {
@@ -105,6 +116,7 @@ function App() {
         message: newTemplate.templateinput,
       };
 
+      //Destructures current array, and adds new item to the end of the array.
       setTemplateData((currentTemplates) => [
         ...currentTemplates,
         newTemplateObject,
@@ -112,7 +124,7 @@ function App() {
     }
   };
 
-  //Resets Selected Template Message when the Reset Button is pressed.
+  //Resets selected template message when the reset button is pressed.
   const messageReset = () => {
     setMessage("");
     setData(null);
@@ -123,7 +135,7 @@ function App() {
       {/* Display Header */}
       <header className="App-header">Hotel Messaging App</header>
 
-      {/* Place to add to Templates */}
+      {/* Section to add to Templates */}
       <div>
         <section>Input New Templates:</section>
         <form onSubmit={addNewTemplate}>
@@ -137,7 +149,7 @@ function App() {
       {/* Begin Selection Form */}
       <div className="FormDiv">
         <section>Select Guest To Reach:</section>
-        <form className="Form" onSubmit={handleTemplateSelection}>
+        <form className="Form" onSubmit={handleSelection}>
           {/* Guest Selection */}
           <label>
             Guest:
@@ -181,22 +193,6 @@ function App() {
           <button type="submit">Select</button>
         </form>
       </div>
-
-      {/* Selection Display. If Data Object is empty (like on page-load or reset) no display */}
-      {/* Might not be necessary to use until further development completed My Intention was to be able to delete or add to this data */}
-      {/* {data && (
-        <div>
-          <div>Selections:</div>
-          <section>Guest:</section>
-          <p>
-            {data.guest.firstName} {data.guest.lastName}
-          </p>
-          <section>Company:</section>
-          <p>{data.company.name}</p>
-          <section>Message Template:</section>
-          <p>{data.messageTemplate.message}</p>
-        </div>
-      )} */}
 
       {/* Template Message Display */}
       <div>
