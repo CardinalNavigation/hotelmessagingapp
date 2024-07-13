@@ -4,7 +4,7 @@
 
 ## Code:
 
-The code is delpoyed here:
+The code is deployed here:
 
 The code can be found at https://github.com/CardinalNavigation/hotelmessagingapp
 
@@ -13,24 +13,35 @@ The code can be found at https://github.com/CardinalNavigation/hotelmessagingapp
 1. `git clone git@github.com:CardinalNavigation/hotelmessagingapp.git `
 2. `npm install` - To Install Dependencies
 3. `npm start` - To Initialze the project in your browser.
-4. If npm start does not automatically open your browser browser you can view at [Link Text](http://localhost:3000)
+4. If npm start does not automatically open your browser browser you can view loclly at [Link Text](http://localhost:3000)
 
-## My Thought Process:
+## Design Decisions:
+
+Programming Language:
 
 - Javascript is my strongest language.
+- Easy to whip something into a webrowser that users can touch.
 
-- I went with React because I wanted to create a quick prototype and be able to quickly see what I am creating, as well as create a quick application that the user can pick up and manipulate without much effort.
+Library Used:
 
+- I went with React because I wanted to create a quick prototype and be able to quickly see what I am creating and iterate upon that.
+- It is something easy to create that a user can pick up and manipulate without much effort.
 - React also makes manipulating the data which was provided from the JSON files very easy as you can see the immediate results of code changes displayed on the DOM.
 
-- I debated with myself whether I wanted to capture the state of each of the selectors individually but decided that I would focus on capturing the information used there with the submit button in order to generate a data object.
+On Data :
 
-## Things which could be improved:
+- I debated whether I wanted to capture the state of each of the selectors individually but decided that I would focus on capturing the information as a whole with the select button and have that generate a data object.
+- If I was working with an API I may have made differnet decisions about how the data is brought in locally to the file, as it was I imported the data and felt that was sufficient for the task here.
 
-- Split off functionality and state into seperate modules rather than dispaying all in /src/App.js.
-- Pass through for more readable code and to separate responsibilities between functions.
-- The code be more extensible. There are some ways in which it is written that may need some attention if this was to be expanded upon further.
+## Things which could be improved with more time input:
+
+- Split code off into seperate modules rather than keeping it all in /src/App.js.
+- Pass through for more readable code and to more neatly separate responsibilities between functions.
+- The code be more extensible. There are some ways in which it is written that may need some attention if this was to be expanded upon further. Specifically, in the message generator function is creating our data object once selections are made. It may be useful to have a template object or class written above any of our helper functions.
+- If there is an area for improvement for me it is gaining knowledge about object-oriented programming design. I have done some self study on this topic and would be excited to learn more.
 - Write my own CSS - What I have was Generated from Claude 3.5.
+- Getting some tests written to ensure functions are working as intended. -This is an area of interest for me.
+-
 
 ### ToDos:
 

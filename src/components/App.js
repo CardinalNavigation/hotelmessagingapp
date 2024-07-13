@@ -65,8 +65,8 @@ function App() {
     setData(dataObject);
 
     //Create Message Variable with available data.
-    let messageOutput = `Good ${dataObject.messageTemplate.timeofDay}, ${dataObject.guest.firstName} ${dataObject.guest.lastName}. 
-    And welcome to ${dataObject.company.name}.
+    let messageOutput = `Good ${dataObject.messageTemplate.timeofDay} ${dataObject.guest.firstName} ${dataObject.guest.lastName}, 
+    and welcome to ${dataObject.company.name}!
     Room ${guest.reservation.roomNumber} is ready for you. 
     ${dataObject.messageTemplate.message}`;
 
