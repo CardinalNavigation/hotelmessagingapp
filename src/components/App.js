@@ -11,10 +11,14 @@ function App() {
   const [data, setData] = useState(null);
 
   //This useState holds the imports from the JSON Document.
-  //If an API was added to this app this is where that data could be held for display.
   const [companies, setCompanies] = useState(companyData);
   const [guests, setGuests] = useState(guestData);
   const [templates, setTemplateData] = useState(messageData);
+
+  //State for selections made by user:
+  const [selectedGues, setSelectedGuest] = useState("");
+  const [selectedCompany, setSelectedCompany] = useState("");
+  const [selectedTemplate, setSelectedTemplate] = useState("");
 
   //This is the Select button function which captures the data from the selectors.
   const handleSelection = (event) => {

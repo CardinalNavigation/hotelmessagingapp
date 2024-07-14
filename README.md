@@ -51,8 +51,3 @@ On Data :
 5. Allow the user to specify which guest and which company should be used to populate template messages. ✅
 6. Allow the user to either select one of the message templates that was loaded in from the JSON file or to enter in a new message template ✅
 7. Generate a final message output that is a result of populating the specified variables of the message template with the correct values from the other data ✅
-
-### Matt's ToDo's:
-
-8. Look through Code one more time and make small edits, do not change large portions.
-9. Look through line for line and explain in small detail decisions made in the ReadMe
