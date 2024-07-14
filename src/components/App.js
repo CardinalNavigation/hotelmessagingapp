@@ -24,9 +24,9 @@ function App() {
   const [selectedCompany, setSelectedCompany] = useState(null);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
 
-  console.log(selectedCompany);
-  console.log(selectedGuest);
-  console.log(selectedTemplate);
+  // console.log(selectedCompany);
+  // console.log(selectedGuest);
+  // console.log(selectedTemplate);
 
   //This function processes the time of day and returns Morning, Afternoon or Evening.
   const getTimeOfDay = () => {
@@ -45,7 +45,8 @@ function App() {
   const [timeOfDay, setTimeOfDay] = useState(getTimeOfDay());
 
   //Message holds user selections and displays on the bottom of the page.
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(null);
+  console.log(message);
 
   //This is the Select button function which captures the data from the selectors.
   const handleGuestSelection = (selectedGuest) => {

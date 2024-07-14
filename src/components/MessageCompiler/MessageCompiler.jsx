@@ -2,9 +2,14 @@ import { useEffect } from "react";
 
 function MessageCompiler({ selectedGuest, selectedCompany, selectedTemplate, timeOfDay, compileMessage }) {
 
-    const messageGenerator = (selectedGuest, selectedCompany, selectedTemplate, timeOfDay) => {
+    useEffect(() => {
+        if (selectedGuest && selectedCompany && selectedTemplate) {
+            const messageOutput = messageGenerator(selectedGuest, selectedCompany, selectedTemplate, timeOfDay);
+            compileMessage(messageOutput)
+        }
+    }, [selectedGuest, selectedCompany, selectedTemplate, timeOfDay, compileMessage])
 
-        //Define Data Objects from Selection into simpler syntax to make it more useable. -1 is for 0 index.
+    const messageGenerator = (selectedGuest, selectedCompany, selectedTemplate, timeOfDay) => {
         let guest = selectedGuest
         let company = selectedCompany
         let template = selectedTemplate
