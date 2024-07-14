@@ -5,7 +5,7 @@ function CompanySelector({ companies, onSelect }) {
             {/* Company Selection */}
             <label>
                 Company:
-                <select defaultValue="none" onChange={(e) => onSelect(companies[e.target.value])}>
+                <select onChange={(e) => onSelect(companies[e.target.value])}>
                     {companies.map((company) => (
                         <option value={company.id} key={company.id}>
                             {company.company}
