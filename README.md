@@ -35,7 +35,7 @@ On Data :
 
 ## Things which could be improved with more time input:
 
-- Split code off into seperate modules rather than keeping it all in /src/App.js.
+- Split code off into seperate modules rather than keeping it all in /src/App.js. ✅
 - Pass through for more readable code and to more neatly separate responsibilities between functions.
 - The code be more extensible. There are some ways in which it is written that may need some attention if this was to be expanded upon further. Specifically, in the message generator function is creating our data object once selections are made. It may be useful to have a template object or class written above any of our helper functions.
 - If there is an area for improvement for me it is gaining knowledge about object-oriented programming design. I have done some self study on this topic and would be excited to learn more.
