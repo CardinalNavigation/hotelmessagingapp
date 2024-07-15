@@ -2,7 +2,7 @@ import { useState } from "react";
 
 function NewTemplateGenerator({ templates }) {
 
-    //Below Function Allows Users To Add New Templates
+    // Below Function Allows Users To Add New Templates
     const addNewTemplate = (event) => {
         event.preventDefault();
         //Taking Data From Event, transfering to a form.
@@ -23,10 +23,10 @@ function NewTemplateGenerator({ templates }) {
             };
 
             //Destructures current array, and adds new item to the end of the array.
-            setTemplateData((currentTemplates) => [
-                ...currentTemplates,
-                newTemplateObject,
-            ]);
+            // setTemplateData((currentTemplates) => [
+            //     ...currentTemplates,
+            //     newTemplateObject,
+            // ]);
         }
     };
 
