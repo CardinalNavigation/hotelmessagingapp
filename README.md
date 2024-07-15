@@ -4,7 +4,7 @@
 
 ## Code:
 
-The code is deployed here:
+The code is deployed through Vercel here: https://hotelmessagingapp.vercel.app/
 
 The code can be found at https://github.com/CardinalNavigation/hotelmessagingapp
 
@@ -20,11 +20,11 @@ The code can be found at https://github.com/CardinalNavigation/hotelmessagingapp
 Programming Language:
 
 - Javascript is my strongest language.
-- Easy to whip something into a webrowser that users can touch.
+- Easy to create something into a webrowser that users can interact with.
 
 Library Used:
 
-- I went with React because I wanted to create a quick prototype and be able to quickly see what I am creating and iterate upon that.
+- I went with React because I wanted to create a quick prototype and be able see what I am developing and iterate upon that.
 - It is something easy to create that a user can pick up and manipulate without much effort.
 - React also makes manipulating the data which was provided from the JSON files very easy as you can see the immediate results of code changes displayed on the DOM.
 
@@ -32,15 +32,16 @@ On Data :
 
 - I debated whether I wanted to capture the state of each of the selectors individually but decided that I would focus on capturing the information as a whole with the select button and have that generate a data object.
 - If I was working with an API I may have made differnet decisions about how the data is brought in locally to the file, as it was I imported the data and felt that was sufficient for the task here.
+- I experimented in a seperate branch getting most of the code seperated into different components and having that data passed down into the seperate components and back up after the message is generated.
 
 ## Things which could be improved with more time input:
 
-- Split code off into seperate modules rather than keeping it all in /src/App.js.
-- Pass through for more readable code and to more neatly separate responsibilities between functions.
-- The code be more extensible. There are some ways in which it is written that may need some attention if this was to be expanded upon further. Specifically, in the message generator function is creating our data object once selections are made. It may be useful to have a template object or class written above any of our helper functions.
+- Split code off into seperate modules rather than keeping it all in /src/App.js. (Completed in Experimental Branch)
+- Pass through for more readable code and to more neatly separate responsibilities between functions. (Completed in Experimental Branch)
+- The code be more extensible. There are some ways in which it is written that may need some attention if this was to be expanded upon further. Specifically, in the message generator function is creating our data object once selections are made. It may be useful to have a template object or class written in a Parent component.
 - If there is an area for improvement for me it is gaining knowledge about object-oriented programming design. I have done some self study on this topic and would be excited to learn more.
 - Write my own CSS - What I have was Generated from Claude 3.5.
-- Getting some tests written to ensure functions are working as intended. -This is an area of interest for me.
+- Getting some tests written to ensure functions are working as intended. -This is an also area of growth for me.
 
 ### ToDos:
 
@@ -54,5 +55,5 @@ On Data :
 
 ### Matt's ToDo's:
 
-8. Look through Code one more time and make small edits, do not change large portions.
-9. Look through line for line and explain in small detail decisions made in the ReadMe
+8. Look through Code one more time and make small edits, do not change large portions. ✅
+9. Look through line for line and explain in small detail decisions made in the ReadMe ✅
