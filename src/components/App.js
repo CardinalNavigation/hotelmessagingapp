@@ -46,7 +46,7 @@ function App() {
 
   //Message holds user selections and displays on the bottom of the page.
   const [message, setMessage] = useState(null);
-  console.log(message);
+  // console.log(message);
 
   //This is the Select button function which captures the data from the selectors.
   const handleGuestSelection = (selectedGuest) => {
